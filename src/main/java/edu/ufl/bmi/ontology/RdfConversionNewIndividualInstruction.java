@@ -1,5 +1,7 @@
 package edu.ufl.bmi.ontology;
 
+import java.net.URI;
+
 import java.text.ParsePosition;
 
 import java.time.LocalDate;
@@ -170,7 +172,13 @@ public class RdfConversionNewIndividualInstruction extends RdfConversionInstruct
 						dataObject.getDataElementValue(this.iriSourceVariableName); 
 					System.out.println("Got value of " + iriTxt + " for " + this.iriSourceVariableName + " data element.");
 					individualIri = IRI.create(iriTxt);
-					System.out.println("Created new IRI: " + individualIri.toString());
+					try {
+						URI iriAsUri = individualIri.toURI();
+					} catch (IllegalArgumentException ile) {
+						ile.printStackTrace();
+						System.err.println("Bad IRI: " + iriTxt + ", not using it but instead minting new IRI.");
+						individualIri = null;
+					}
 				}
 
 				OWLNamedIndividual oni = (individualIri != null) ? 
