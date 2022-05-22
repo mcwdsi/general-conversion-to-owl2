@@ -41,4 +41,8 @@ public abstract class DataObject {
 
 	public abstract String[] getValuesForElement(String elementName);
 	public abstract DataObject[] getValuesAsDataObjectsForElement(String elementName);	
+
+	public String getRawData() {
+		return this.rawData;
+	}
 }

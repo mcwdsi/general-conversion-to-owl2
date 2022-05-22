@@ -45,7 +45,7 @@ is concretized as	http://purl.obolibrary.org/obo/RO_0000058	object property
 has basis in	http://purl.obolibrary.org/obo/APOLLO_SV_00000543	object property
 s-depends	http://purl.obolibrary.org/obo/BFO_0000169	object property
 disposition	http://purl.obolibrary.org/obo/BFO_0000016	class
-software	http://purl.obolibrary.org/obo/OBI_0500000	class
+software	http://purl.obolibrary.org/obo/IAO_0000010	class
 simulatingx	http://purl.obolibrary.org/obo/APOLLO_SV_00000005	class
 simulatedhostpopulation	http://purl.obolibrary.org/obo/APOLLO_SV_00000031	class
 simulatedpathogenpopulation	http://purl.obolibrary.org/obo/APOLLO_SV_00000031	class
@@ -172,7 +172,7 @@ ncbi website	https://www.ncbi.nlm.nih.gov/	individual	website	NCBI Website
 github website	https://www.github.com/	individual	website	GitHub
 researchgate website	https://www.researchgate.net/	individual	website	ResearchGate
 google scholar website	https://scholar.google.com/	individual	website	Google Scholar
-document act	http://purl.obolibrary.org/obo/IAO_0021001	class
+document act	http://purl.obolibrary.org/obo/IAO_0021002	class
 exists at	http://purl.obolibrary.org/obo/BFO_0000108	object property
 linkedin website	https://www.linkedin.com/	individual	website	LinkedIn
 twitter	https://www.twitter.com/	individual	website	Twitter

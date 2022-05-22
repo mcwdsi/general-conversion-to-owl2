@@ -176,10 +176,14 @@ public class RdfConversionQueryIndividualByAttributeValueInstruction extends Rdf
 		OWLNamedIndividual oni = (resultCount > 0) ? 
 			odf.getOWLNamedIndividual(resultSet.iterator().next()) :
 			null;
-		
-		System.err.println("for " + this.lookupValueFieldName + " == " + lookupValue + ", returning IRI == " + oni.getIRI());			
-		//System.out.println("Adding the following to variables: " + variableName + "\t" + oni);
-		if (oni != null) variables.put(variableName, oni);
+				
+		if (oni != null) {
+			System.err.println("for " + this.lookupValueFieldName + " == " + lookupValue + ", returning IRI == " + oni.getIRI());
+			//System.out.println("Adding the following to variables: " + variableName + "\t" + oni);
+			variables.put(variableName, oni); 
+		} else {
+			System.err.println("for " + this.lookupValueFieldName + " == " + lookupValue + ", IRI is null. No IRI exists in IRI RDF store.");
+		}
 		//iriRepository.addIris(oni.getIRI(), null, repoAnnotations);		
 	}
 

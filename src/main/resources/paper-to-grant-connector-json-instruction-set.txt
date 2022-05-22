@@ -1,0 +1,6 @@
+
+foreach [paperGrantsAcknowledged]
+query-individual: grant-realization	grant	grant-realization	p.[grantID]
+query-individual: paper	paper	id	[paperID]
+# we can say the paper is about the process of realizing the grant realizable
+object-property-expression: paper	is about	grant-realization

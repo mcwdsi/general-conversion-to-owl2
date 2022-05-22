@@ -1,0 +1,1 @@
+mvn exec:java -Dhttps.protocols=TLSv1.3 -Dexec.mainClass="edu.ufl.bmi.misc.SaveOneObjectAtATimeFromApiProcess" -Dexec.arguments="src/main/resources/paper-api-info.txt","./papers" -Dexec.cleanupDaemonThreads=false

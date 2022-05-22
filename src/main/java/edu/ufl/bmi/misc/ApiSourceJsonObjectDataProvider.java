@@ -173,7 +173,7 @@ public class ApiSourceJsonObjectDataProvider extends DataObjectProvider {
             	};
             	
                 int cTries = 0;
-                SSLHandshakeException shell = null;
+                SSLException sell = null;
                 do {
                     try {
             	       String responseBody = httpclient.execute(httpGet, responseHandler);
@@ -185,14 +185,14 @@ public class ApiSourceJsonObjectDataProvider extends DataObjectProvider {
                             return getNextDataObject();
                        }
                        break;
-                    } catch (SSLHandshakeException she) {
+                    } catch (SSLException se) {
                         httpclient = HttpClients.createDefault();
-                        shell = she;
+                        sell = se;
                         cTries++;
                     }
                 } while (cTries < 10);
 
-                if (jdo == null && shell != null) throw new RuntimeException("After 10 attempts still got a SSLHandshakeException.");
+                if (jdo == null && sell != null) throw new RuntimeException("After 10 attempts still got a SSLHandshakeException.");
 			} catch (IOException ioe) {
         		ioe.printStackTrace();
         	} /* finally {
