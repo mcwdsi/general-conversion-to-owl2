@@ -65,7 +65,7 @@ public class SaveOneObjectAtATimeFromApiProcess {
 
 		for (DataObject dataObject : dop) {
 			String keyValue = dataObject.getDataElementValue(uniqueIdFieldName);
-			File dof = new File(this.localFolder + File.pathSeparator + keyValue + ".json");
+			File dof = new File(this.localFolder + File.separator + keyValue + ".json");
 			if (!dof.exists()) {
 				try {
 					FileWriter fw = new FileWriter(dof);
