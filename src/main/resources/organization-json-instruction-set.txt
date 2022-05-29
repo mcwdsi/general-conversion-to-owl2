@@ -2,12 +2,15 @@
 new-individual: midas-cc-identifier	identifier	label	[id]
 object-property-expression: midas-cc-identifier	denotes	[row-individual]
 annotation: midas-cc-identifier	comment	"MIDAS Coordination Center identifier for "+[name]
-new-individual: organization-role	organization role	label	"role of organization "+[name]+" with ID="+[id]
+new-individual: organization-role	organization role	label	"role of organization with ID="+[id]
+annotation: organization-role	comment	"role of organization "+[name]+" with ID="+[id]
 object-property-expression:	[row-individual]	bearer	organization-role
 
 [name]
-annotation: [row-individual]	label	[name]
+new-individual: organization-name	identifier	label	[name]
+annotation: organization-name	comment	"name of organization with ID="+[id]
 annotation: [row-individual]	title	[name]
+object-property-expression: organization-name	denotes	[row-individual]
 
 [url]
 annotation: [row-individual]	hasURL	[url]
@@ -15,6 +18,7 @@ annotation: [row-individual]	hasURL	[url]
 [abbreviation]
 new-individual: organization-abbrev	abbreviation textual entity	label	[abbreviation]
 object-property-expression: organization-abbrev	is about	[row-individual]
+annotation: organization-abbrev	comment	"abbreviation for organization with ID="+[id]
 
 [organizationCategory]
 annotation: [row-individual]	comment	"Category - " + [organizationCategory.name]
@@ -24,7 +28,7 @@ annotation: [row-individual]	comment	"Type - " + [organizationType.name]
 class-assertion-expression: [row-individual]	[organizationType.name]
 
 [address]
-new-individual: organization-address	postal address	label	"Postal address of "+[name]
+new-individual: organization-address	postal address	label	"Postal address of organization with ID="+[id]
 object-property-expression: organization-address	is contact information about	[row-individual]
 data-property-expression: organization-address	street address	[address.address]	String
 data-property-expression: organization-address	postal code	[address.postalCode]	String
@@ -34,10 +38,13 @@ data-property-expression: organization-address	country name	[address.country]	St
 
 [address.phone]
 new-individual: organization-phone	telephone number	label	[address.phone]
+annotation: organization-phone	comment	"Phone number of organization with ID="+[id]
+annotation: organization-phone	comment	"Phone number of "+[name]+" (organization"
 object-property-expression: organization-phone	is contact information about	[row-individual]
 
 [email]
 new-individual: organization-email	email address	label	[email]
+annotation: organization-email	comment	"Email address of organization with ID="+[id]
 object-property-expression: organization-email	is contact information about	[row-individual]
 
 [memberOfOrganization]
@@ -45,19 +52,22 @@ query-individual: member-of	organization	id	[memberOfOrganization.id]
 object-property-expression: [row-individual]	proper continuant part	member-of
 
 [socialMedia.linkedInURL]
-new-individual: organization-linked-in	website	label	"LinkedIn web page for "+[name]	iri=[socialMedia.linkedInURL]
+new-individual: organization-linked-in	website	label	"LinkedIn web page for organization with ID="+[id]	iri=[socialMedia.linkedInURL]
 annotation: organization-linked-in	hasURL	[socialMedia.linkedInURL]
+annotation: organization-linked-in	comment	"LinkedIn web page for "+[name]
 object-property-expression: organization-linked-in	is about	[row-individual]
 object-property-expression: organization-linked-in	member of	linkedin website
 
 [socialMedia.githubIdentifier]
 new-individual: github-id	identifier	label	[socialMedia.githubIdentifier]
 annotation: github-id	comment	"GitHub identifier for "+[name]
+annotation: github-id	comment	"GitHub identifier for organization with ID="+[id]
 object-property-expression: github-id	denotes	[row-individual]
 object-property-expression: github-id	member of	github website
 
 [socialMedia.twitterHandle]  
 new-individual: organization-twitter-handle	identifier	label	[socialMedia.twitterHandle]
 annotation: organization-twitter-handle	comment	"Twitter handle for "+[name]
+annotation: organization-twitter-handle	comment	"Twitter handle for organization with ID="+[id]
 object-property-expression: organization-twitter-handle	is contact information about	[row-individual]
 object-property-expression: organization-twitter-handle	member of	twitter

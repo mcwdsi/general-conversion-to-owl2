@@ -2,6 +2,7 @@
 new-individual: midas-cc-identifier	identifier	label	[id]
 object-property-expression: midas-cc-identifier	denotes	[row-individual]
 annotation: midas-cc-identifier	comment	"MIDAS Coordination Center identifier for "+[firstName]+" "+[middleInitials]+" "+[lastName]
+annotation: [row-individual]	label	"person with ID="+[id]
 
 [lastName]
 new-individual: person-name	personal name	label	[firstName]+" "+[middleInitials]+" "+[lastName]
@@ -20,25 +21,29 @@ new-individual: email-primary	email address	label	[emailPrimaryAffiliation]
 object-property-expression: email-primary	is contact information about	[row-individual]
 
 [personalWebsiteUrl]
-new-individual: personal-website	website	label	"personal website of: "+[firstName]+" "+[middleInitials]+" "+[lastName]	iri=[personalWebsiteUrl]
+new-individual: personal-website	website	label	"personal website of person with ID="+[id]	iri=[personalWebsiteUrl]
+annotation: personal-website	comment	"personal website of: "+[firstName]+" "+[middleInitials]+" "+[lastName]	
 annotation: personal-website	hasURL	[personalWebsiteUrl]
 object-property-expression: personal-website	is about	[row-individual]
 
 [googleScholarUrl]
-new-individual: google-scholar	website	label	"Google Scholar page of: "+[firstName]+" "+[middleInitials]+" "+[lastName]	iri=[googleScholarUrl]
+new-individual: google-scholar	website	label	"Google Scholar URL of person with ID="+[id]	iri=[googleScholarUrl]
 annotation: google-scholar	hasURL	[googleScholarUrl]
+annotation: google-scholar	comment	"Google Scholar page of "+[firstName]+" "+[middleInitials]+" "+[lastName]
 object-property-expression: google-scholar	is about	[row-individual]
 object-property-expression: google-scholar	member of	google scholar website
 
 [researchGateUrl]
-new-individual: researchgate	website	label	"ResearchGate site of: "+[firstName]+" "+[middleInitials]+" "+[lastName]	iri=[researchGateUrl]
+new-individual: researchgate	website	label	"ResearchGate site of person with ID="+[id]	iri=[researchGateUrl]
+annotation: researchgate	comment	"ResearchGate site of: "+[firstName]+" "+[middleInitials]+" "+[lastName]
 annotation: researchgate	hasURL	[researchGateUrl]
 object-property-expression: researchgate	is about	[row-individual]
 object-property-expression: researchgate	member of	researchgate website
 
 [ncbiUrl]
-new-individual: ncbi	website	label	"NCBI site of: "+[firstName]+" "+[middleInitials]+" "+[lastName]	iri=[ncbiUrl]
+new-individual: ncbi	website	label	"NCBI site of person with ID="+[id]	iri=[ncbiUrl]
 annotation: ncbi	hasURL	[ncbiUrl]
+annotation: ncbi	comment	"NCBI site of: "+[firstName]+" "+[middleInitials]+" "+[lastName]
 object-property-expression: ncbi	is about	[row-individual]
 object-property-expression: ncbi	member of	ncbi website
 
@@ -47,7 +52,8 @@ foreach [personAffiliations]
 query-individual: primary-affiliated-org	organization	id	[affiliation.organizationID]
 object-property-expression: [row-individual]	member of	primary-affiliated-org
 # say that the person has a role with that organization
-new-individual: role-in-org	role	label	"role with "+[affiliation.name]
+new-individual: role-in-org	role	label	"role with organization with ID="+[affiliation.organizationID]
+annotation: role-in-org	comment	"role with "+[affiliation.name]
 object-property-expression: [row-individual]	bearer	role-in-org
 object-property-expression: role-in-org	exists at	[sysDateUrl]
 annotation: role-in-org	title	[title]

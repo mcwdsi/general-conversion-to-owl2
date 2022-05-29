@@ -48,6 +48,10 @@ public class RdfConversionQueryIndividualInstruction extends RdfConversionInstru
 		if (variableName.endsWith("]")) {
 			int len = this.variableName.length();
 			this.variableName = this.variableName.substring(0, len-1);
+			if (this.variableName == null) {
+				System.err.println("Lookup variable name is null: " + lookupValueFieldName + ", " + externalFileFieldName + ", "
+						+ externalFileRowTypeName + ", " + iriPrefix);
+			}
 		}
 		
 		//this.variableName = (variableName.startsWith("[")) ? variableName.replace("[","").replace("]","") : variableName ;
