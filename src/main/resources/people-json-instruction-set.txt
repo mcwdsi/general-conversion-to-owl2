@@ -2,7 +2,7 @@
 new-individual: midas-cc-identifier	identifier	label	[id]
 object-property-expression: midas-cc-identifier	denotes	[row-individual]
 annotation: midas-cc-identifier	comment	"MIDAS Coordination Center identifier for "+[firstName]+" "+[middleInitials]+" "+[lastName]
-annotation: [row-individual]	label	"person with ID="+[id]
+annotation: [row-individual]	comment	"person with ID="+[id]
 
 [lastName]
 new-individual: person-name	personal name	label	[firstName]+" "+[middleInitials]+" "+[lastName]
@@ -10,14 +10,20 @@ object-property-expression: person-name	denotes	[row-individual]
 new-individual: family-name	family name	label	[lastName]
 object-property-expression: family-name	is part of	person-name
 
+[firstName]
+new-individual: given-name	given name	label	[firstName]
+object-property-expression: given-name	is part of	person-name
+
 [orcid]
 new-individual: orcid	orcid	editor preferred	"ORCID of "+[firstName]+" "+[middleInitials]+" "+[lastName]
 annotation: orcid	label	[orcid]
 annotation: orcid	hasURL	"https://orcid.org/"+[orcid]
+annotation: orcid	comment	"ORCID of person with ID="+[id]
 object-property-expression: orcid	denotes	[row-individual]
 
 [emailPrimaryAffiliation]
 new-individual: email-primary	email address	label	[emailPrimaryAffiliation]
+annotation: email-primary	comment	"email address for primary affiliation of person with ID="+[id]
 object-property-expression: email-primary	is contact information about	[row-individual]
 
 [personalWebsiteUrl]
@@ -52,17 +58,16 @@ foreach [personAffiliations]
 query-individual: primary-affiliated-org	organization	id	[affiliation.organizationID]
 object-property-expression: [row-individual]	member of	primary-affiliated-org
 # say that the person has a role with that organization
-new-individual: role-in-org	role	label	"role with organization with ID="+[affiliation.organizationID]
-annotation: role-in-org	comment	"role with "+[affiliation.name]
+new-individual: role-in-org	role	label	"role of person with ID="+p.[id]+" with organization with ID="+[affiliation.organizationID]
+annotation: role-in-org	comment	"role of "+p.[firstName]+" "+p.[middleInitials]+" "+p.[lastName]+" with "+[affiliation.name]
 object-property-expression: [row-individual]	bearer	role-in-org
 object-property-expression: role-in-org	exists at	[sysDateUrl]
 annotation: role-in-org	title	[title]
 annotation: role-in-org	comment	"isPrimaryAffiliation: "+[primaryAffiliation]
 annotation: role-in-org	comment	"activeAffiliation: "+[activeAffiliation]
 # store the affiliation ID as denoting the role
-new-individual: role-in-org-id	identifier	label	[personAffiliationID]
+new-individual: role-in-org-id	identifier	label	"personAffiliationID="+[personAffiliationID]+" for person with ID="+p.[id]
 object-property-expression: role-in-org-id	denotes	role-in-org
-annotation: role-in-org-id	comment	"personAffiliationID: "+[personAffiliationID]
 class-assertion-expression: role-in-org	[title]
 # we'll say the email address for this affiliation is contact info about the person, but it's also about the role-in-org
 new-individual: email-for-role	email address	label	[email]	[email] not-empty

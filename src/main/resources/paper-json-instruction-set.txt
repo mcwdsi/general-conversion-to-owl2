@@ -5,6 +5,7 @@ object-property-expression: midas-cc-identifier	denotes	[row-individual]
 annotation: midas-cc-identifier	comment	"MIDAS Coordination Center identifier for "+[title]
 new-individual: paper-writing	documenting	label	"authoring of "+[paperID]+" with title: "+[title]
 object-property-expression: paper-writing	has specified output	[row-individual]
+annotation: [row-individual]	comment	"paper with ID="+[id]
 
 # annotate the individual w/dc:title
 [title]
@@ -14,22 +15,26 @@ annotation: [row-individual]	title	[title]
 new-individual: paper-pmid	pmid	label	[pmid]
 object-property-expression: paper-pmid	denotes	[row-individual]
 annotation: paper-pmid	comment	"PMID for "+[title]
+annotation: paper-pmid	comment	"PMID for paper with ID="+[paperID]
 
 [doi]
 new-individual: paper-doi	doi	label	[doi]
 object-property-expression: paper-doi	denotes	[row-individual]
 annotation: paper-doi	comment	"DOI for "+[title]
+annotation: paper-doi	comment	"DOI for paper with ID="+[id]
 
 # easy.  It's just a pubmed central ID
 [pmcid]
 new-individual: paper-pmcid	identifier	label	[pmcid]
 object-property-expression: paper-pmcid	denotes	[row-individual]
 annotation: paper-pmcid	comment	"PMCID for "+[title]
+annotation: paper-pmcid	comment	"PMCID for paper with ID="+[paperID]
 object-property-expression: paper-pmcid	proper continuant part	pubmed central
 
 # authors primitive
 [authors]
 new-individual:	author-list-individual	author list	label	[authors]
+annotation: author-list-individual	comment	"author list for paper with ID="+[id]
 # consider retiring this annotation now that you're full-blown using IAO's author list class
 annotation: [row-individual]	authors	[authors]
 object-property-expression: author-list-individual	proper continuant part	[row-individual]
@@ -39,7 +44,8 @@ foreach [paperAuthors]
 # query-individual: primary-affiliated-org	organization	id	[affiliation.organizationID]
 query-individual: author-x	human	id	[authorAlias.paperAlias.personID]
 # annotate author-x-paper-writing with order.  Consider some author role that is realized.  Maybe annotations for author order go there!
-new-individual: author-x-role	author role	label	"role of person "+[authorAlias.paperAlias.personID]+" "+[authorAlias.lastName]+" "+[authorAlias.foreName]+" in writing paper "+p.[paperID]
+new-individual: author-x-role	author role	label	"role of person "+[authorAlias.paperAlias.personID]+" in writing paper "+p.[paperID]
+annotation: author-x-role	comment	"role of person "+[authorAlias.lastName]+", "+[authorAlias.foreName]+" in writing paper: "+p.[title]
 object-property-expression: paper-writing	realizes	author-x-role
 object-property-expression: author-x	bearer	author-x-role
 object-property-expression: paper-writing	has active participant	author-x	
@@ -56,11 +62,11 @@ annotation: [row-individual]	hasURL	[paperUrl]
 # there's no publishing class.  For now, we'll say the end of the authoring process occurs over an interval that overlaps this date
 # [datePublished] primitive
 [datePublished]
-new-individual: authoring-region	one d region	label	"temporal region occupied by authoring of "+[paperID]+" with title: "+[title]
+new-individual: authoring-region	one d region	label	"temporal region occupied by authoring of paper with ID="+[paperID]
+annotation: authoring-region	comment	"temporal region occupied by the authoring of paper with title: "+[title]
 new-individual: pub-date	temporal interval	label	[datePublished]	iri=fromDate([datePublished])
 object-property-expression: paper-writing	occupies temporal region	authoring-region
 object-property-expression: authoring-region	ends during	pub-date
-
 
 # This is the name of the journal. There is no identifier for journal in the metadata.
 #   The lookup instruction only works to find other data object of the primary type.
@@ -118,12 +124,6 @@ annotation: [row-individual]	comment	"journal+volume+issue: "+[publicationVenue]
 # need to check values TODO
 # [pubmedCurated] primitive
 
-# need to understand structure of objects in this array first
-# [paperAuthors] array
-
-# should be redundant to paperID - need to check
-# [id] primitive
-
 # need to understand structure of objects in array first
 # [paperGrantsAcknowledged] array
 
@@ -141,9 +141,6 @@ object-property-expression: [row-individual]	is about	grant-realization
 
 # Hmmmm.  More stuff about journals.  Need to look at values.
 # [journalCitedMedium] primitive
-
-
-
 
 # not sure what this means
 # [paperDatasetIdentifierSource] primitive

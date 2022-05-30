@@ -21,14 +21,14 @@ object-property-expression: organization-abbrev	is about	[row-individual]
 annotation: organization-abbrev	comment	"abbreviation for organization with ID="+[id]
 
 [organizationCategory]
-annotation: [row-individual]	comment	"Category - " + [organizationCategory.name]
+annotation: [row-individual]	comment	"Category - name = " + [organizationCategory.name] + ", id = " + [organizationCategory.id]
 
 [organizationType]
-annotation: [row-individual]	comment	"Type - " + [organizationType.name]
+annotation: [row-individual]	comment	"Type - name = " + [organizationType.name] + ", id = " + [organizationType.id]
 class-assertion-expression: [row-individual]	[organizationType.name]
 
 [address]
-new-individual: organization-address	postal address	label	"Postal address of organization with ID="+[id]
+new-individual: organization-address	postal address	label	"postal address of organization with ID="+[id]
 object-property-expression: organization-address	is contact information about	[row-individual]
 data-property-expression: organization-address	street address	[address.address]	String
 data-property-expression: organization-address	postal code	[address.postalCode]	String
@@ -38,13 +38,13 @@ data-property-expression: organization-address	country name	[address.country]	St
 
 [address.phone]
 new-individual: organization-phone	telephone number	label	[address.phone]
-annotation: organization-phone	comment	"Phone number of organization with ID="+[id]
-annotation: organization-phone	comment	"Phone number of "+[name]+" (organization"
+annotation: organization-phone	comment	"phone number of organization with ID="+[id]
+annotation: organization-phone	comment	"phone number of "+[name]+" (organization)"
 object-property-expression: organization-phone	is contact information about	[row-individual]
 
 [email]
 new-individual: organization-email	email address	label	[email]
-annotation: organization-email	comment	"Email address of organization with ID="+[id]
+annotation: organization-email	comment	"email address of organization with ID="+[id]
 object-property-expression: organization-email	is contact information about	[row-individual]
 
 [memberOfOrganization]

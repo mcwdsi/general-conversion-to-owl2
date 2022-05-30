@@ -2,6 +2,7 @@
 [id]
 new-individual: grant-id	identifier	label	[id]
 annotation: grant-id	comment	"identifier for grant "+[title]
+annotation: grant-id	comment	"identifier for grant with ID="+[grantID]
 object-property-expression: grant-id	denotes	[row-individual]
 
 # title primitive
