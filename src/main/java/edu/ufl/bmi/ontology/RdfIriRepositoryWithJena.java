@@ -25,6 +25,8 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
+import org.apache.jena.ext.xerces.util.XMLChar;
+
 public class RdfIriRepositoryWithJena implements IriRepository {
 
 	String repositoryFileName;
@@ -49,12 +51,13 @@ public class RdfIriRepositoryWithJena implements IriRepository {
 			if (value == null) {
 				System.err.println("query IRIs, value is null for " + propIri);
 			}
+			String validValue = convertToXmlValid(value);
 			if (!first)
 				queryTxt.append(".\n");
 			queryTxt.append("\t?x <");
 			queryTxt.append(propIri.toString());
 			queryTxt.append("> '");
-			queryTxt.append(value.replace("'","\\'"));
+			queryTxt.append(validValue.replace("'","\\'"));
 			queryTxt.append("' ");
 			first = false;
 
@@ -161,9 +164,30 @@ public class RdfIriRepositoryWithJena implements IriRepository {
 		while (keys.hasNext()) {
 			IRI propertyIri = keys.next();
 			String value = propertyValuePairs.get(propertyIri);
+			String validValue = convertToXmlValid(value);
 			Property property = m.getProperty(propertyIri.toString());
-			theResource.addProperty(property, value);
+			theResource.addProperty(property, validValue);
 		}
+	}
+
+	protected String convertToXmlValid(String s) {
+		s=s.replace("\r","\\r");
+		s=s.replace("\n","\\n");
+		s=s.replace("\\", "\\\\");
+		s=s.replace("\"", "\\\"");
+		s=s.replace("\b", "\\b");
+		s=s.replace("\f", "\\f");
+		s=s.replace("\t", "\\t");
+		char[] c = s.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		for (char ci : c) {
+			if (XMLChar.isValid(ci))
+				sb.append(ci);
+			else {
+				System.err.println("Bad XML char " + ci + " in " + s);
+			}
+		}
+		return sb.toString();
 	}
 
 	public void writeFile() {
