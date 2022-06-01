@@ -81,6 +81,11 @@ query-individual-by-attribute-value: pub-venue	journal	medline-abbrev	[publicati
 query-individual-by-attribute-value: pub-venue	journal	iso-abbrev	[publicationVenue]	[ID]
 query-individual-by-attribute-value: pub-venue	journal	sort-name	[publicationVenue]	[ID]	uppercase
 query-individual-by-attribute-value: pub-venue	journal	sort-name	[publicationVenue]	[ID]	uppercase,removeword;THE
+query-individual-by-attribute-value: pub-venue	journal	iso-abbrev	[publicationVenue]	[ID]	sentencecase
+query-individual-by-attribute-value: pub-venue	journal	iso-abbrev	[publicationVenue]	[ID]	sentencecase,removeword;The
+query-individual-by-attribute-value: pub-venue	journal	iso-abbrev	[publicationVenue]	[ID]	sentencecase,removeword;the
+query-individual-by-attribute-value: pub-venue	journal	iso-abbrev	[publicationVenue]	[ID]	titlecase
+query-individual-by-attribute-value: pub-venue	journal	iso-abbrev	[publicationVenue]	[ID]	titlecase,removeword;The
 object-property-expression: [row-individual]	proper continuant part	pub-venue
 annotation: [row-individual]	comment	"journal: "+[publicationVenue]
 

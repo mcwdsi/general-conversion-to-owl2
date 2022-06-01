@@ -205,6 +205,30 @@ public class RdfConversionQueryIndividualByAttributeValueInstruction extends Rdf
 					case "lowercase":
 						processedValue = processedValue.toLowerCase();
 						break;
+					case "titlecase":
+						processedValue = processedValue.toLowerCase();
+						char[] c = processedValue.toCharArray();
+						StringBuilder pvBuilder = new StringBuilder();
+						boolean priorSpace = true;
+						for (char ci : c) {
+							if (priorSpace && ci != ' ') {
+								pvBuilder.append(Character.toUpperCase(ci));
+								priorSpace=false;
+							} else if (ci ==' ') {
+								priorSpace = true;
+								pvBuilder.append(ci);
+							} else {
+								pvBuilder.append(ci);
+								priorSpace = false;
+							}
+						}
+						processedValue = pvBuilder.toString();
+						break;
+					case "sentencecase":
+						String first = processedValue.substring(0,1).toUpperCase();
+						String rest = processedValue.substring(1).toLowerCase();
+						processedValue = first+rest;
+						break;
 					case "removeword":
 						String beginning = components[1]+" ";
 						String end = " "+components[1];
