@@ -12,3 +12,6 @@ buildNumber.properties
 *#
 .DS_Store
 catalog*.xml
+*.out
+*.err
+*.owl
