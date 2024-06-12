@@ -1,0 +1,13 @@
+object_type=human
+
+# data object provider information
+data_provider_type=json api
+api_base_url=https://members.midasnetwork.us/midascontacts/api/
+get_all_object_ids_url=https://members.midasnetwork.us/midascontacts/api/people/ids
+# this maps from the class handle in iris.txt to the API lingo
+human=people
+
+# information about fields / elements in the data objects
+unique_key_fields=id,peopleID
+unique_id_field=id
+
